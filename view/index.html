@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>故障管理系统</title>
+    <meta name="description" content="故障管理系统">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../common/normalize.css">
+    <link rel="stylesheet" href="../common/layui/css/layui.css">
+    <link rel="stylesheet" href="../common/common.css">
+    <link rel="stylesheet" href="../view/index.css">
+    <script>
+        function preLoadImg (url) {
+            var img = new Image();
+            img.src = url;
+        }
+        preLoadImg('../img/button.png');
+    </script>
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <img src="../img/header.png" alt="">
+    </header>
+    <main class="main clearfix">
+        <div class="main-left fl">
+            <ul class="msg-list clearfix">
+                <li class="msg-item">
+                    <div class="msg-icon">
+                        <img src="../img/icon1.png" class="img-center" alt="">
+                    </div>
+                    <span class="msg-label">船舰数量</span>
+                    <span class="msg-value text-ellipsis" id="shipNum"></span>
+                    <span>艘</span>
+                </li>
+                <li class="msg-item">
+                    <div class="msg-icon">
+                        <img src="../img/icon2.png" class="img-center" alt="">
+                    </div>
+                    <span class="msg-label">故障总数</span>
+                    <span class="msg-value msg-color text-ellipsis" id="faultNum"></span>
+                    <span>次</span>
+                </li>
+                <li class="msg-item">
+                    <div class="msg-icon">
+                        <img src="../img/icon3.png" class="img-center" alt="">
+                    </div>
+                    <span class="msg-label">已解决</span>
+                    <span class="msg-value text-ellipsis" id="resave"></span>
+                    <span>次</span>
+                </li>
+                <li class="msg-item">
+                    <div class="msg-icon">
+                        <img src="../img/icon4.png" class="img-center" alt="">
+                    </div>
+                    <span class="msg-label">处理率</span>
+                    <span class="msg-value text-ellipsis" id="percent"></span>
+                </li>
+            </ul>
+            <div class="chart-box">
+                <div class="chart-title">
+                    <span>故障统计信息</span>
+                </div>
+                <div class="chart-item">
+                    <div class="border-lt"></div>
+                    <div class="border-rb"></div>
+                    <div class="canvas-box" id="faultChart"></div>
+                </div>
+            </div>
+            <div class="chart-box">
+                <div class="chart-title">
+                    <span>物理类别</span>
+                </div>
+                <div class="chart-item">
+                    <div class="border-lt"></div>
+                    <div class="border-rb"></div>
+                    <div class="canvas-box" id="physicsChart"></div>
+                </div>
+            </div>
+            <div class="chart-box">
+                <div class="chart-title">
+                    <span>原因类别</span>
+                </div>
+                <div class="chart-item">
+                    <div class="border-lt"></div>
+                    <div class="border-rb"></div>
+                    <div class="canvas-box" id="reasonChart"></div>
+                </div>
+            </div>
+        </div>
+        <div class="main-center fl">
+            <div id="js-navBox" class="nav-box"></div>
+            <div class="three-box">
+                <!-- 边 -->
+                <div class="border-left-top"></div>
+                <div class="border-right-bottom"></div>
+                <!-- 内容 -->
+                <div class="three-wrapper" >
+                    <div class="wrapper-box " id="threeWrapper">
+                        <div class="wrapper-box" id="jsThree"></div>
+                        <!-- 左下 -->
+                        <div class="ship-msg clearfix" id="lbBox">
+                            <div class="ship-title clearfix">
+                                <div class="fl">
+                                    <span>所选船舰</span>
+                                    <div class="title-border"></div>
+                                </div>
+                            </div>
+                            <div class="ship-list-msg">
+                                加载中...
+                            </div>
+                        </div>
+                        <!-- 左上 -->
+                        <div class="scene-box clearfix" id="ltBox">
+                            <div class="ship-title clearfix">
+                                <div class="fl">
+                                    <span>信息概览</span>
+                                    <div class="title-border"></div>
+                                </div>
+                            </div>
+                            <ul class="ship-scene" id="threeInfoBox"></ul>
+                        </div>
+                        <div class="color-box" id="rtBox">
+                            <ul></ul>
+                        </div>
+                    </div>
+                    <div class="wrapper-box hide" id="twoWrapper">
+                        <!-- 左上 -->
+                        <div class="tab-btns">
+                            <button type="button" id="pie" class="item-tab tab-active pie-btn">饼图</button>
+                            <button type="button" id="bar" class="item-tab bar-btn">柱状/曲线图</button>
+                            <button type="button" id="custom" class="item-tab custom-btn">自定义</button>
+                        </div>
+                        <div class="tab-plane">
+                            <div class="plane-box" id="piePlane">
+                                <div class="plane-pie-center" id="js-pie"></div>
+                                <!--<div class="plane-content pie-content clearfix">-->
+                                <!--<div class="plane-pie-left fl">-->
+                                <!--<div class="half-label">-->
+                                <!--<div class="label-title">内层图例</div>-->
+                                <!--<ul class="label-wrapper clearfix" id="pieInner">-->
+                                <!--<span>加载中...</span>-->
+                                <!--</ul>-->
+                                <!--</div>-->
+                                <!--<div class="half-label">-->
+                                <!--<div class="label-title">中层图例</div>-->
+                                <!--<ul class="label-wrapper clearfix" id="pieCenter">-->
+                                <!--<span>加载中...</span>-->
+                                <!--</ul>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="plane-pie-center fl" id="js-pie"></div>-->
+                                <!--<div class="plane-pie-right fr">-->
+                                <!--<div class="label-title">外层图例</div>-->
+                                <!--<ul class="label-wrapper clearfix" id="pieOuter">-->
+                                <!--<span>加载中...</span>-->
+                                <!--</ul>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <div class="plane-footer layui-form clearfix hide">
+                                    <div class="plane-select">
+                                        <div class="plane-line-top"></div>
+                                        <div class="plane-line-right"></div>
+                                        <div class="plane-select-header">
+                                            <div class="plane-select-label fl">
+                                                <span class="plane-title">设备</span>
+                                                <div class="select-all layui-form-item fr">
+                                                    <input type="checkbox" name="selectAll" title="全选" lay-skin="primary">
+                                                </div>
+                                            </div>
+                                            <div class="plane-filter">
+                                                <input type="text" class="layui-input" placeholder="关键词">
+                                                <div class="filter-icon"></div>
+                                            </div>
+                                        </div>
+                                        <ul class="plane-select-list clearfix" id="equipmentPlane">
+                                            <span>加载中...</span>
+                                        </ul>
+                                    </div>
+                                    <div class="plane-select">
+                                        <div class="plane-line-top"></div>
+                                        <div class="plane-line-left"></div>
+                                        <div class="plane-line-right"></div>
+                                        <div class="plane-select-header">
+                                            <div class="plane-select-label fl">
+                                                <span class="plane-title">部位</span>
+                                                <div class="select-all layui-form-item fr">
+                                                    <input type="checkbox" name="selectAll" title="全选" lay-skin="primary">
+                                                </div>
+                                            </div>
+                                            <div class="plane-filter">
+                                                <input type="text" class="layui-input" placeholder="关键词">
+                                                <div class="filter-icon"></div>
+                                            </div>
+                                        </div>
+                                        <ul class="plane-select-list clearfix" id="postionPlane">
+                                            <span>加载中...</span>
+                                        </ul>
+                                    </div>
+                                    <div class="plane-select">
+                                        <div class="plane-line-top"></div>
+                                        <div class="plane-line-left"></div>
+                                        <div class="plane-select-header">
+                                            <div class="plane-select-label fl">
+                                                <span class="plane-title">部件</span>
+                                                <div class="select-all layui-form-item fr">
+                                                    <input type="checkbox" name="selectAll" title="全选" lay-skin="primary">
+                                                </div>
+                                            </div>
+                                            <div class="plane-filter">
+                                                <input type="text" class="layui-input" placeholder="关键词">
+                                                <div class="filter-icon"></div>
+                                            </div>
+                                        </div>
+                                        <ul class="plane-select-list clearfix" id="partPlane">
+                                            <span>加载中...</span>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="plane-box hide" id="barPlane">
+                                <div class="plane-content bar-plane one-chart" id="chartWrapper">
+                                    <div class="plane-bar-item fl" id="barItem1"></div>
+                                    <div class="plane-bar-item fl" id="barItem2"></div>
+                                    <div class="plane-bar-item fl" id="barItem3"></div>
+                                    <div class="plane-bar-item fl" id="barItem4"></div>
+                                </div>
+                                <div class="plane-select-box">
+                                    <div class="plane-select-handle plane-bar-handle">
+                                        <i class="layui-icon layui-icon-top"></i>
+                                    </div>
+                                    <div class="plane-footer layui-form hide">
+                                        <div class="plane-line-top"></div>
+                                        <div class="plane-select-header">
+                                            <div class="plane-select-label fl">
+                                                <span class="plane-title">统计项（已选）</span>
+                                            </div>
+                                            <button type="button" class="analy-btn fr" id="drawBarChart">分析</button>
+                                        </div>
+                                        <div class="plane-bar-wrapper">
+                                            <ul class="plane-select-list clearfix" id="countPlane"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="plane-box hide" id="customPlane">
+                                <div class="custome-table">
+                                    <div class="search-filter">
+                                        <div class="search-filter-box">
+                                            <button type="button" id="filterType"></button>
+                                            <input type="text" value="" placeholder="请输入关键字" id="filterKey">
+                                            <button type="button" id="searchData"></button>
+                                            <div class="filter-type-wrapper hide">
+                                                <!--<div class="filter-header">-->
+                                                    <!--<button type="button" id="resetType">重置</button>-->
+                                                    <!--<p class="filter-type-num">-->
+                                                        <!--(<span class="filter-checked-num">0</span>-->
+                                                        <!--\-->
+                                                        <!--<span class="filter-total-num">19</span>)-->
+                                                    <!--</p>-->
+                                                <!--</div>-->
+                                                <ul class="filter-type-list layui-form" id="filterList"></ul>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="analy-btn" id="drawCustomChart">分析</button>
+                                    </div>
+                                    <table id="customTable" lay-filter="customDetail"></table>
+                                </div>
+                                <div class="custome-chart hide">
+                                    <div class="search-filter">
+                                        <button type="button" class="analy-btn return-btn" id="returnBtn">返回</button>
+                                    </div>
+                                    <div class="custome-chart-wrapper">
+                                        <div class="plane-content custom-content">
+                                            <div class="plane-custom-remind">
+                                                筛选条件：<span></span>
+                                            </div>
+                                            <div class="plane-cuatom-item" id="customeChart"></div>
+                                        </div>
+                                        <div class="plane-select-box">
+                                            <div class="plane-select-handle plane-bar-handle">
+                                                <i class="layui-icon layui-icon-top"></i>
+                                            </div>
+                                            <div class="plane-footer layui-form hide">
+                                                <div class="plane-line-top"></div>
+                                                <div class="select-custom-type">
+                                                    <div class="plane-line-right"></div>
+                                                    <div class="select-custom-item">
+                                                        <div class="select-custom-header">
+                                                            <div class="select-custom-label">选择x轴类型</div>
+                                                            <div class="select-custom-box">
+                                                                <select name="customXType" id="customXType" lay-filter="customXType">
+                                                                    <option value="">请选择展示数据类型</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="select-custom-body selectXType"></div>
+                                                    </div>
+                                                    <div class="select-custom-item">
+                                                        <div class="select-custom-header">
+                                                            <div class="select-custom-label">
+                                                                <div class="select-custom-check">
+                                                                    <input type="checkbox" name="hasInnerType"  lay-skin="primary">
+                                                                </div>
+                                                                <span>选择内部类型</span>
+                                                            </div>
+                                                            <div class="select-custom-box">
+                                                                <select name="customType" id="customType" lay-filter="customType">
+                                                                    <option value="">请选择展示数据类型</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="select-custom-body selectType"></div>
+                                                    </div>
+                                                </div>
+                                                <!--<div class="plane-header">-->
+                                                    <!--<div class="custome-chart-box layui-form-item ">-->
+                                                        <!--<select name="customType" id="customType" lay-filter="customType">-->
+                                                            <!--<option value="">请选择展示数据类型</option>-->
+                                                        <!--</select>-->
+                                                        <!--<button type="button" id="addCustomType">添加</button>-->
+                                                    <!--</div>-->
+                                                    <!--<dl class="select-custom-type"></dl>-->
+                                                <!--</div>-->
+                                                <div class="plane-custom-wrapper">
+                                                    <ul class="plane-select-list clearfix" id="selectPlane"></ul>
+                                                </div>
+                                                <div class="select-remind-text">
+                                                    <button type="button" id="selectAllType">全选</button>
+                                                    <span></span>
+                                                </div>
+                                                <button type="button" class="fr" id="addCustomType">确定</button>
+                                                <button type="button" class="analy-btn fr" id="drawSimpleChart">分析</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 右下 -->
+                <div class="menu-box" id="menuWrapper">
+                    <button type="button" class="menu-btn" id="menuBtn"></button>
+                    <div class="menu-light"></div>
+                    <div class="change-btns hide" id="menuBox" >
+                        <div class="btn-item btn-active" id="threeBtn">
+                            <div class="btn-text">三维模型</div>
+                        </div>
+                        <div class="btn-item btn-no-active" id="twoBtn">
+                            <div class="btn-text">二维图表</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-right fr">
+            <ul class="handle-list clearfix">
+                <li class="handle-item">
+                    <div class="time-icon">
+                        <img src="../img/time.png" class="img-center" alt="">
+                    </div>
+                    <span class="time-value" id="sysTime"></span>
+                </li>
+                <li class="handle-item">
+                    <div class="handle-icon handle-set" id="jsSetBtn">
+                        <button type="button" class="click-button handle-btn"></button>
+                        <ul class="handle-select js-set-box">
+                            <div class="tri-top"></div>
+                            <li>选项一</li>
+                            <li>选项二</li>
+                        </ul>
+                    </div>
+                    <div class="handle-icon handle-user" id="jsUserBtn">
+                        <button type="button" class="click-button handle-btn"></button>
+                        <ul class="handle-select js-user-box">
+                            <div class="tri-top"></div>
+                            <li>退出</li>
+                            <li>注销</li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <div class="menu-tab"></div>
+            <div class="chart-box">
+                <div class="chart-title">
+                    <span>设备名称</span>
+                </div>
+                <div class="chart-item">
+                    <div class="border-lt"></div>
+                    <div class="border-rb"></div>
+                    <div class="canvas-box" id="equipmentChart"></div>
+                </div>
+            </div>
+            <div class="chart-box">
+                <div class="chart-title">
+                    <span>专业类别</span>
+                </div>
+                <div class="chart-item pie-chart">
+                    <div class="border-lt"></div>
+                    <div class="border-rb"></div>
+                    <div class="canvas-box" >
+                        <div class="canvas-inner" id="majorChart"></div>
+                        <ul class="label-list clearfix" id = "labelList"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- 详情弹窗 -->
+    <div class="dialog-msk hide" id="dialogMsk"></div>
+    <div class="select-time hide">
+        <div class="tri-left"></div>
+        <ul class="select-type">
+            <li id='selectYear' class='selectTimeType'>
+                <div>选择年份</div>
+                <div  class="hide time-range">
+                    <div class="tri-left"></div>
+                    <div class="time-item" dataTime='1'>一年</div>
+                    <div class="time-item" dataTime='3'>三年</div>
+                    <div class="time-item" dataTime='5'>五年</div>
+                    <div class="time-item" dataTime='10'>十年</div>
+                    <div class="time-item" dataTime='all'>所有</div>
+                </div>
+            </li>
+            <li class='selectTimeType' dataType='year'>按年展示</li>
+            <li class='selectTimeType' dataType='quarter'>按季度展示</li>
+            <li class='selectTimeType' dataType='month'>按月展示</li>
+        </ul>
+    </div>
+    <div class="detail-dialog hide" id="detailDialog">
+        <div class="border-lt"></div>
+        <div class="border-rb"></div>
+        <div class="border-rt"></div>
+        <div class="border-lb"></div>
+        <div class="dialog-header">
+            <span>故障详情</span>
+            <div class="dialog-handle fr">
+                <button class="dialog-search" id="dialogSearch"></button>
+                <button class="dialog-save" id="dialogSave"></button>
+                <button class="dialog-close" id="dialogClose"></button>
+            </div>
+        </div>
+        <div class="dialog-body">
+            <div class="dialog-search-box clearfix layui-form hide" id="diallogSearch">
+                <div class="dialog-search-left fl clearfix ">
+                    <div class = "select-box layui-inline layui-form-item">
+                        <label class="layui-form-label">设备名称:</label>
+                        <div class="layui-input-block">
+                            <select name="model" id="model" lay-filter="selectModel"></select>
+                        </div>
+                    </div>
+                    <div class = "select-box layui-inline layui-form-item">
+                        <label class="layui-form-label">故障器件:</label>
+                        <div class="layui-input-block">
+                            <select name="ship" id="ship" lay-filter="selectShip"></select>
+                        </div>
+                    </div>
+                    <div class = "select-box layui-inline layui-form-item">
+                        <label class="layui-form-label">时间:</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="time" id="dateTime" class="layui-input select-date" placeholder="请选择时间段">
+                        </div>
+                    </div>
+                </div>
+                <button class="dialog-search-btn fr layui-btn" type="button" id="filterBtn"></button>
+            </div>
+            <div class="dialog-table clearfix">
+                <div class="table-box fl">
+                    <table id="detailTable" lay-filter="lookAt"></table>
+                </div>
+                <div class="detail-msg fr">
+                    <div class="msg-header">详情</div>
+                    <div class="msg-content" id="msgContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="custome-detail-row hide" id="customDetailBox"></div>
+    <script type="text/html" id="customDetailTpL">
+        <ul class="custom-detail">
+            <li class="custom-detail-row">
+                <h4>故障信息号</h4>
+                <p>{{d.flt_code}}</p>
+            </li>
+            <li class="custom-detail-row"> 
+                <h4>产品编号</h4>
+                <p>{{d.wea_batchNum}}</p></li>
+            <li class="custom-detail-row"> 
+                <h4>故障时间</h4>
+                <p>{{d.flt_time}}</p></li>
+            <li class="custom-detail-row"> 
+                <h4>故障地点</h4>
+                <p>{{d.flt_position}}</p></li>
+            <li class="custom-detail-row"> 
+                <h4>试验阶段</h4>
+                <p>{{d.flt_testStage}}</p></li>
+            <li class="custom-detail-row"> 
+                <h4>专业类别</h4>
+                <p>{{d.flt_majorType}}</p></li>
+            <li class="custom-detail-row"> 
+                <h4>设备名称</h4>
+                <p>{{d.equ_name}}</p></li>
+            <li class="custom-detail-row"> 
+                <h4>故障部位</h4>
+                <p>{{d.flt_appliance}}</p></li>
+            <li class="custom-detail-row"> 
+                <h4>器件类别</h4>
+                <p>{{d.flt_applianceType}}</p></li>
+            <li class="custom-detail-row"> 
+                <h4>器件编号</h4>
+                <p>{{d.flt_applianceCode}}</p></li>
+            <li class="custom-detail-row"> 
+                <h4>物理类别</h4>
+                <p>{{d.flt_type}}</p></li>
+            <li class="custom-detail-row"> 
+                <h4>原因类别</h4>
+                <p>{{d.flt_reasonType}}</p></li>
+            <li class="custom-detail-row"> 
+                <h4>故障模式</h4>
+                <p>{{d.flt_mode}}</p></li>
+        </ul>
+    </script>
+    <script type="text/html" id="typeNav">
+        <div class="clearfix js-nav layui-form" id="jsNav">
+            {{# if(d.typeList.length <= 6){ }}
+            {{# layui.each(d.typeList, function(index, item){ }}
+            <div class="nav-item {{# if(index == d.typeIndex){ }} nav-active {{# } }}" index='{{index}}'>
+                <span class="text-ellipsis js-nav-title">{{item.weaType}}</span>
+                <div class='type-dialog select-dialog {{# if(!d.isTypeSearch || (d.isTypeSearch && index != d.typeIndex)){ }} hide {{# } }}'></div>
+            </div>
+            {{# }); }}
+            {{# } else { }}
+            {{# layui.each(d.typeList, function(index, item){ }}
+            {{# if(index < 5) { }}
+            <div class="nav-item {{# if(index == d.typeIndex){ }} nav-active {{# } }}" index='{{index}}'>
+                <span class="text-ellipsis js-nav-title">{{item.weaType}}</span>
+                <div class='type-dialog select-dialog {{# if(!d.isTypeSearch || (d.isTypeSearch && index != d.typeIndex)){ }} hide {{# } }}'></div>
+            </div>
+            {{# } }}
+            {{# }); }}
+            <div class="nav-more">
+                <button type="button" class="more-btn"></button>
+                <div class='select-dialog more-type {{# if(!d.showMore){ }} hide {{# } }}' id='moreNavDialog'>
+                    <div class="tri-top"></div>
+                    {{# if(!d.noSearch){ }}
+                    <div class="search-input">
+                        <input type="text" placeholder="关键字搜索" class='search-nav-input'>
+                        <button class="search-icon js-type search-nav-btn"></button>
+                    </div>
+                    {{# } }}
+                    <ul class="search-list">
+                        {{# layui.each(d.typeList, function(index, item){ }}
+                        {{# if(index >= 5) { }}
+                        <li class="searchListItem typeListItem js-more {{# if(index == d.typeIndex){ }} more-nav-active {{# } }}" index='{{index}}'>
+                            <span class="text-ellipsis js-nav-title">{{item.weaType}}</span>
+                            <div class='type-dialog select-dialog child-dialog {{# if(!d.isTypeSearch || (d.isTypeSearch && index != d.typeIndex)){ }} hide {{# } }}'></div>
+                        </li>
+                        {{# } }}
+                        {{# }); }}
+                    </ul>
+                </div>
+            </div>
+            {{# } }}
+        </div>
+    </script>
+    <script type="text/html" id="projectNav">
+        <div class="tri-jiao"></div>
+        {{# if(!d.noSearch){ }}
+        <div class="search-input">
+            <input type="text" placeholder="关键字搜索" class='search-nav-input'>
+            <button class="search-icon js-pro search-nav-btn"></button>
+        </div>
+        {{# } }}
+        <ul class="search-list">
+            {{# layui.each(d.shipList, function(si, st){ }}
+            <li class="searchListItem childListItem js-project {{# if(d.isActive && d.weaModelNum == st.weaModelNum){ }}  more-nav-active {{# } }}" index='{{si}}'>
+                <span class="text-ellipsis">{{st.weaModelNum}}</span>
+                <div class='project-dialog select-dialog children-dialog {{# if(!d.isProSearch || (d.isProSearch && si != d.projectIndex)){ }} hide {{# } }}' ></div>
+            </li>
+            {{# }); }}
+        </ul>
+    </script>
+    <script type="text/html" id="shipNav">
+        <div class="tri-left"></div>
+        {{# if(!d.noSearch){ }}
+        <div class="search-input">
+            <input type="text" placeholder="关键字搜索" class='search-nav-input'>
+            <button class="search-icon js-ship search-nav-btn"></button>
+        </div>
+        {{# } }}
+        <ul class="search-list">
+            {{# layui.each(d.ships, function(i, t){ }}
+            <li class="searchListItem text-ellipsis layui-form-item js-children-title {{# if(d.isActive && d.flt_shipboardCode == st.flt_shipboardCode){ }}  more-nav-active {{# } }}" index='{{i}}'>
+                <input type="checkbox"  name="{{t.flt_shipboardCode}}" title="{{t.flt_shipboardCode}}" lay-skin="primary">
+            </li>
+            {{# }); }}
+        </ul>
+        <button type="button" class="confirm-checkBox fr">确定</button>
+    </script>
+    <script type="text/html" id="shipMsg">
+        {{# layui.each(d.selectShip, function(index, item){ }}
+        <ul class="ship-msg-box clearfix">
+            <li class="text-ellipsis">
+                <div class="ship-icon">
+                    <img src="../img/icon1.png" alt="" class="img-center">
+                </div>
+                <div class="ship-label">船舷号</div>
+                <div class="ship-value shipCode">{{item.flt_shipboardCode}}</div>
+            </li>
+            <li class="text-ellipsis">
+                <div class="ship-icon">
+                    <img src="../img/icon2.png" alt="" class="img-center">
+                </div>
+                <div class="ship-label">故障数</div>
+                <div class="ship-value msg-color faultNub">{{item.faultNum}}</div>
+            </li>
+            <li class="text-ellipsis">
+                <div class="ship-icon">
+                    <img src="../img/test.png" alt="" class="img-center">
+                </div>
+                <div class="ship-label">试验阶段</div>
+                <div class="ship-value testStage">{{item.flt_testStage}}</div>
+            </li>
+            <li class="text-ellipsis">
+                <div class="ship-icon">
+                    <img src="../img/pos.png" alt="" class="img-center">
+                </div>
+                <div class="ship-label">当前位置</div>
+                <div class="ship-value nowPos">{{item.flt_position}}</div>
+            </li>
+        </ul>
+        {{# }); }}
+    </script>
+</div>
+</body>
+<script src="../common/layui/layui.js"></script>
+<script src="../common/three/three.js"></script>
+<script src="../common/three/js/libs/inflate.min.js"></script>
+<script src="../common/three/js/loaders/FBXLoader.js"></script>
+<script src="../common/three/js/controls/OrbitControls.js"></script>
+<script src="../common/echarts.js"></script>
+<script src='./mock.js'></script>
+<script src="../common/config.js"></script>
+<script src="../view/index.js"></script>
+</html>

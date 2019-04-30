@@ -1,0 +1,31 @@
+{
+    "msg": "",
+    "code": 1,
+    "data": [{
+        "flt_position": "宁德"
+    }, {
+        "flt_position": "上海"
+    }, {
+        "flt_position": "湖上联调"
+    }, {
+        "flt_position": "山东威海"
+    }, {
+        "flt_position": "湛江"
+    }, {
+        "flt_position": "广州"
+    }, {
+        "flt_position": "大连旅顺"
+    }, {
+        "flt_position": "青岛"
+    }, {
+        "flt_position": "广西北海"
+    }, {
+        "flt_position": "舟山"
+    }, {
+        "flt_position": "三亚"
+    }, {
+        "flt_position": "旅顺"
+    }, {
+        "flt_position": "汕头"
+    }]
+}

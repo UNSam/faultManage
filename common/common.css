@@ -1,0 +1,270 @@
+body {
+    font-family: 'MicrosoftYaHei','Source Sans Pro', 'Helvetica Neue', Arial, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+}
+/* 修改默认样式 */
+.layui-form-item{
+    margin-bottom: 0;
+}
+
+.layui-form-label{
+    width: 70px;
+    padding: 5px;
+    box-sizing: border-box;
+    margin-left: 6px;
+}
+
+.layui-input-block{
+    min-height: 0;
+    margin-left: 76px;
+}
+
+.layui-input, .layui-select, .layui-textarea{
+    height: 30px;
+    background: #001635;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.4);
+}
+
+.detail-dialog .layui-input{
+    max-width: 160px;
+}
+
+.layui-form-select dl{
+    background: #001635;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.4);
+}
+
+.layui-form-select dl dd:hover,
+.layui-form-select dl dd.layui-this{
+    background: rgba(117,175,255,0.5);
+}
+/* date */
+body .layui-laydate, body  .layui-laydate-hint{
+    background: #001635;
+    border: 1px solid rgba(255,255,255,0.4);
+    color: #fff;
+}
+
+.layui-laydate .layui-laydate-header,
+.layui-laydate .layui-laydate-footer,
+.layui-laydate.layui-laydate-range .laydate-main-list-1 .layui-laydate-content{
+    border-color: rgba(255,255,255,0.4);
+}
+
+.layui-laydate .layui-laydate-content td,
+.layui-laydate .layui-laydate-content th,
+.layui-laydate .layui-laydate-header i{
+    color: #fff;
+}
+
+.layui-laydate .layui-laydate-content .laydate-day-next, .layui-laydate .layui-laydate-content .laydate-day-prev{
+    color: rgba(255,255,255,0.3);
+}
+
+body .layui-laydate .laydate-disabled, body .layui-laydate .laydate-disabled:hover{
+    color: rgba(255,255,255,0.3)!important;
+}
+
+.layui-laydate .layui-laydate-header i:hover,
+.layui-laydate .layui-laydate-header .laydate-set-ym span:hover {
+    color: #75afff;
+}
+
+.layui-laydate .layui-laydate-content td:hover,
+.layui-laydate .layui-laydate-list li:hover{
+    background: #75afff;
+    color: #001635;
+}
+
+.layui-laydate .laydate-footer-btns span{
+    background: transparent;
+}
+
+.layui-laydate .laydate-footer-btns span:hover{
+    border-color: #75afff;
+    background: #75afff;
+    color: #001635;
+}
+
+.layui-laydate .laydate-footer-btns .laydate-disabled:hover{
+    border-color: #c9c9c9;
+}
+
+.layui-laydate td.layui-this,
+.layui-laydate .layui-laydate-list li.layui-this{
+    background: #75afff!important;
+    color: #001635!important;
+}
+
+.layui-laydate .layui-laydate-content td.laydate-selected{
+    background: #75afff!important;
+    color: #001635!important;
+}
+
+.layui-laydate .layui-laydate-list{
+    background: #001635;
+}
+
+.layui-form-item .layui-form-checkbox[lay-skin=primary],
+.layui-form-item .layui-form-radio{
+    width: 100%;
+    text-align: left;
+    margin: 0;
+}
+.layui-form-checkbox[lay-skin=primary] span,
+.layui-form-radio span{
+    color: #fff;
+    font-size: 12px;
+}
+
+.layui-form-checkbox[lay-skin=primary] i{
+    background: transparent;
+    color: transparent;
+}
+
+.layui-form-radio>i{
+    font-size: 20px;
+}
+
+.layui-form-radio>i:hover,
+.layui-form-radioed>i,
+.layui-form-radioed{
+    color: #48a6fb;
+}
+
+.layui-form-checkbox[lay-skin=primary]:hover i{
+    border-color: #fff;
+    color: transparent;
+}
+
+.layui-form-checked[lay-skin=primary] i,
+.layui-form-checked[lay-skin=primary]:hover i{
+    color: #fff;
+    border-color: #fff;
+}
+
+.layui-form-checkbox[lay-skin=primary]{
+    min-width: 10px;
+    min-height: 10px;
+    padding-left: 22px;
+}
+/* table */
+.layui-table, .layui-table-view{
+    margin: 0;
+    width: 100%!important;
+    background: #001635;
+    color: #fff;
+    border-color: rgba(255,255,255,0.1);
+}
+
+.layui-table thead tr,
+.layui-laypage .layui-laypage-curr .layui-laypage-em{
+    background: rgba(74,135,188,0.5);
+}
+
+/* .layui-table td, .layui-table th, .layui-table-col-set, .layui-table-fixed-r, .layui-table-grid-down, .layui-table-header, .layui-table-page, .layui-table-tips-main, .layui-table-tool, .layui-table-total, .layui-table-view, .layui-table[lay-skin=line], .layui-table[lay-skin=row]{
+    border-color: rgba(255,255,255,0.1);
+} */
+
+.layui-table-init{
+    background: #001635!important;
+}
+
+.layui-table-view .layui-table td, .layui-table-view .layui-table th{
+    border-color: rgba(255,255,255,0.1);
+    padding: 6px 0;
+    text-align: left;
+}
+
+.layui-table-view .layui-table .layui-table-grid-down{
+    background: transparent;
+    border-color: transparent;
+    color: #fff;
+}
+
+.layui-table-view .layui-table tbody tr:hover{
+    background: rgba(74,135,188,0.5);
+}
+
+.layui-table-view .layui-table tbody tr.table-selected{
+    color:#61b1fe;
+}
+
+.layui-table-header{
+    margin-right: -1px;
+    height: 40px;
+}
+
+.layui-table-header .layui-table{
+    margin-bottom: 0;
+}
+
+.layui-table[lay-even] tr:nth-child(even) {
+    background: rgba(0,41,98,0.2);
+}
+
+.layui-table-tips-main{
+    background: #001635;
+    color: #fff;
+}
+
+.layui-table-header,
+.layui-table-page, .layui-table-total{
+    border-color: rgba(255,255,255,0.1);
+    box-sizing: border-box;
+    background: transparent;
+    text-align: center;
+}
+
+.layui-laypage a:hover, .layui-breadcrumb a:hover{
+    color: #fff;
+}
+
+.layui-laypage button, .layui-laypage input{
+    background: transparent;
+    color: #fff;
+    border-color: #fff;
+}
+
+.layui-laypage input:focus,
+.layui-laypage select:focus {
+    border-color: rgba(74,135,188,0.5) !important
+}
+
+.layui-laypage a{
+    color: #fff;
+}
+
+.layui-table-page .layui-laypage-count{
+    color: #fff;
+}
+
+.layui-laypage-limits select,
+.layui-laypage-limits option{
+    background: #001635;
+    color: #fff;
+}
+
+/* select type */
+.select-all .layui-form-checkbox[lay-skin=primary] span{
+    color: rgba(255,255,255,0.2);
+}
+
+.plane-footer .layui-form-checkbox[lay-skin=primary] i{
+    width: 12px;
+    height: 12px;
+    line-height: 12px;
+    top: 1px;
+    border-color: #48a6fb;
+}
+
+.plane-footer .layui-form-checkbox[lay-skin=primary] i::before{
+    font-size: 10px;
+    line-height: 12px;
+}
+
+.plane-footer .layui-form-checked[lay-skin=primary] i{
+    color: #48a6fb;
+}
