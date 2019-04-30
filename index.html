@@ -6,29 +6,29 @@
     <title>故障管理系统</title>
     <meta name="description" content="故障管理系统">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../common/normalize.css">
-    <link rel="stylesheet" href="../common/layui/css/layui.css">
-    <link rel="stylesheet" href="../common/common.css">
-    <link rel="stylesheet" href="../view/index.css">
+    <link rel="stylesheet" href="./common/normalize.css">
+    <link rel="stylesheet" href="./common/layui/css/layui.css">
+    <link rel="stylesheet" href="./common/common.css">
+    <link rel="stylesheet" href="./view/index.css">
     <script>
         function preLoadImg (url) {
             var img = new Image();
             img.src = url;
         }
-        preLoadImg('../img/button.png');
+        preLoadImg('./img/button.png');
     </script>
 </head>
 <body>
 <div class="container">
     <header class="header">
-        <img src="../img/header.png" alt="">
+        <img src="./img/header.png" alt="">
     </header>
     <main class="main clearfix">
         <div class="main-left fl">
             <ul class="msg-list clearfix">
                 <li class="msg-item">
                     <div class="msg-icon">
-                        <img src="../img/icon1.png" class="img-center" alt="">
+                        <img src="./img/icon1.png" class="img-center" alt="">
                     </div>
                     <span class="msg-label">船舰数量</span>
                     <span class="msg-value text-ellipsis" id="shipNum"></span>
@@ -36,7 +36,7 @@
                 </li>
                 <li class="msg-item">
                     <div class="msg-icon">
-                        <img src="../img/icon2.png" class="img-center" alt="">
+                        <img src="./img/icon2.png" class="img-center" alt="">
                     </div>
                     <span class="msg-label">故障总数</span>
                     <span class="msg-value msg-color text-ellipsis" id="faultNum"></span>
@@ -44,7 +44,7 @@
                 </li>
                 <li class="msg-item">
                     <div class="msg-icon">
-                        <img src="../img/icon3.png" class="img-center" alt="">
+                        <img src="./img/icon3.png" class="img-center" alt="">
                     </div>
                     <span class="msg-label">已解决</span>
                     <span class="msg-value text-ellipsis" id="resave"></span>
@@ -52,7 +52,7 @@
                 </li>
                 <li class="msg-item">
                     <div class="msg-icon">
-                        <img src="../img/icon4.png" class="img-center" alt="">
+                        <img src="./img/icon4.png" class="img-center" alt="">
                     </div>
                     <span class="msg-label">处理率</span>
                     <span class="msg-value text-ellipsis" id="percent"></span>
@@ -359,7 +359,7 @@
             <ul class="handle-list clearfix">
                 <li class="handle-item">
                     <div class="time-icon">
-                        <img src="../img/time.png" class="img-center" alt="">
+                        <img src="./img/time.png" class="img-center" alt="">
                     </div>
                     <span class="time-value" id="sysTime"></span>
                 </li>
@@ -604,28 +604,28 @@
         <ul class="ship-msg-box clearfix">
             <li class="text-ellipsis">
                 <div class="ship-icon">
-                    <img src="../img/icon1.png" alt="" class="img-center">
+                    <img src="./img/icon1.png" alt="" class="img-center">
                 </div>
                 <div class="ship-label">船舷号</div>
                 <div class="ship-value shipCode">{{item.flt_shipboardCode}}</div>
             </li>
             <li class="text-ellipsis">
                 <div class="ship-icon">
-                    <img src="../img/icon2.png" alt="" class="img-center">
+                    <img src="./img/icon2.png" alt="" class="img-center">
                 </div>
                 <div class="ship-label">故障数</div>
                 <div class="ship-value msg-color faultNub">{{item.faultNum}}</div>
             </li>
             <li class="text-ellipsis">
                 <div class="ship-icon">
-                    <img src="../img/test.png" alt="" class="img-center">
+                    <img src="./img/test.png" alt="" class="img-center">
                 </div>
                 <div class="ship-label">试验阶段</div>
                 <div class="ship-value testStage">{{item.flt_testStage}}</div>
             </li>
             <li class="text-ellipsis">
                 <div class="ship-icon">
-                    <img src="../img/pos.png" alt="" class="img-center">
+                    <img src="./img/pos.png" alt="" class="img-center">
                 </div>
                 <div class="ship-label">当前位置</div>
                 <div class="ship-value nowPos">{{item.flt_position}}</div>
@@ -635,13 +635,13 @@
     </script>
 </div>
 </body>
-<script src="../common/layui/layui.js"></script>
-<script src="../common/three/three.js"></script>
-<script src="../common/three/js/libs/inflate.min.js"></script>
-<script src="../common/three/js/loaders/FBXLoader.js"></script>
-<script src="../common/three/js/controls/OrbitControls.js"></script>
-<script src="../common/echarts.js"></script>
+<script src="./common/layui/layui.js"></script>
+<script src="./common/three/three.js"></script>
+<script src="./common/three/js/libs/inflate.min.js"></script>
+<script src="./common/three/js/loaders/FBXLoader.js"></script>
+<script src="./common/three/js/controls/OrbitControls.js"></script>
+<script src="./common/echarts.js"></script>
 <script src='./mock.js'></script>
-<script src="../common/config.js"></script>
-<script src="../view/index.js"></script>
+<script src="./common/config.js"></script>
+<script src="./view/index.js"></script>
 </html>
