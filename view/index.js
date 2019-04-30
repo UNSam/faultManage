@@ -1140,7 +1140,7 @@ layui.use(['jquery','table','laydate','laytpl', 'form'], function(){
             elem: '#customTable',
             height: 828,
             method: 'POST',
-            url: '../common/data/temp.json',
+            url: './common/data/temp.json',
             request: {
                 pageName: 'pageNumber',
                 limitName: 'pageSize'
@@ -1238,7 +1238,7 @@ layui.use(['jquery','table','laydate','laytpl', 'form'], function(){
             type = 'flt_time';
         }
         getData({
-            url: '../common/data/'+type+'.json',
+            url: './common/data/'+type+'.json',
             type: 'POST',
             data: redata
         },function (res) {
@@ -1258,7 +1258,7 @@ layui.use(['jquery','table','laydate','laytpl', 'form'], function(){
             type = 'flt_time';
         }
         getData({
-            url: '../common/data/'+type+'.json',
+            url: './common/data/'+type+'.json',
             type: 'POST',
             data: redata
         },function (res) {
@@ -1305,11 +1305,11 @@ layui.use(['jquery','table','laydate','laytpl', 'form'], function(){
         if(hasInner && customSelectMap.y.typeName){
             requestData.type2 = customSelectMap.y.typeName;
             requestData.values2 = JSON.stringify(customSelectMap.y.selected);
-            url = '../common/data/custom2.json';
+            url = './common/data/custom2.json';
         }else{
         	requestData.type2 = 'null';
             requestData.values2 = '[]';
-            url = '../common/data/custom.json';
+            url = './common/data/custom.json';
         }
         selectedOption = [];
        
@@ -1942,7 +1942,7 @@ layui.use(['jquery','table','laydate','laytpl', 'form'], function(){
             elem: '#detailTable',
             height: 490,
             method: 'POST',
-            url: '../common/data/detail.json',
+            url: './common/data/detail.json',
             request: {
                 pageName: 'pageNumber',
                 limitName: 'pageSize'
