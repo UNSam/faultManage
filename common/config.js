@@ -5,7 +5,7 @@ var baseConfig = {
 //    ctx: 'http://10.126.16.43:8088/FaultManagement/situation/',
 //    fileCtx: 'http://localhost:63342/faultManage/',
     // ctx: 'http://localhost:8080/FaultManagement/situation/',
-    fileCtx: '../'
+    fileCtx: './'
 };
 //echart图表颜色配置
 var chartTheme = {
@@ -71,8 +71,8 @@ var modelColor = [
 ];
 
 var chartIcon = {
-    download: 'image://../img/download.png',
-    select: 'image://../img/select.png',
+    download: 'image://./img/download.png',
+    select: 'image://./img/select.png',
 };
 
 //中央二维图形配置
